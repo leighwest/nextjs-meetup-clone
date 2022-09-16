@@ -1,14 +1,16 @@
 import { MongoClient } from "mongodb";
 
+const uri =
+  "mongodb://leighwest:zadVcfbWnRQWDTw3@ac-jwabefn-shard-00-00.tnkff0l.mongodb.net:27017,ac-jwabefn-shard-00-01.tnkff0l.mongodb.net:27017,ac-jwabefn-shard-00-02.tnkff0l.mongodb.net:27017/?ssl=true&replicaSet=atlas-jqjrhf-shard-0&authSource=admin&retryWrites=true&w=majority";
+
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
 
-    console.log(`data in new-meetup.js is: ${data.title}`);
+    const client = new MongoClient(uri);
 
-    const client = await MongoClient.connect(
-      "mongodb+srv://leighwest:zadVcfbWnRQWDTw3@cluster0.tnkff0l.mongodb.net/meetups?retryWrites=true&w=majority"
-    );
+    await client.connect();
+
     const db = client.db();
 
     const meetupsCollection = db.collection("meetups");
