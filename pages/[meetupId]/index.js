@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   client.close();
 
   return {
-    fallback: false,
+    fallback: "blocking", // list of paths I've specified might not be exhaustive (there might be more in the future). This stops nextjs responding with 404 to unknown pages
     paths: meetups.map((meetup) => ({
       params: { meetupId: meetup._id.toString() },
     })),
